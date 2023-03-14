@@ -182,8 +182,4 @@ export class ArcanaConnector extends Connector {
 
     return this.provider;
   }
-
-  async getUser() {
-    return await this.auth.getUser();
-  }
 }
