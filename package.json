@@ -19,7 +19,8 @@
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "prettier": "prettier --write .",
     "clean": "rimraf dist/ && rimraf types/",
-    "prepublishOnly": "yarn run build"
+    "prepublishOnly": "yarn run build",
+    "prepare": "yarn run build"
   },
   "dependencies": {
     "@arcana/auth": "^1.0.3",
