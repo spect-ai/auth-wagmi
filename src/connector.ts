@@ -68,6 +68,8 @@ export class ArcanaConnector extends Connector {
       await this.auth.connect();
       const chainId = await this.getChainId();
       const unsupported = this.isChainUnsupported(chainId);
+
+      this.options.auth = this.auth;
       return {
         account: await this.getAccount(),
         chain: { id: chainId, unsupported },
@@ -180,13 +182,5 @@ export class ArcanaConnector extends Connector {
     }
 
     return this.provider;
-  }
-
-  getUser() {
-    return this.auth.getUser();
-  }
-
-  getAuth() {
-    return this.auth;
   }
 }
