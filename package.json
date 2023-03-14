@@ -20,7 +20,8 @@
     "prettier": "prettier --write .",
     "clean": "rimraf dist/ && rimraf types/",
     "prepublishOnly": "yarn run build",
-    "prepare": "yarn run build"
+    "prepare": "yarn run build",
+    "postinstall": "yarn run build"
   },
   "dependencies": {
     "@arcana/auth": "^1.0.3",
