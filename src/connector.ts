@@ -15,7 +15,6 @@ import { ethers } from "ethers";
 type AuthOptions = {
   appId?: ConstructorParameters<typeof AuthProvider>[0];
   clientId?: ConstructorParameters<typeof AuthProvider>[0];
-  setUserInfo?: (userInfo: UserInfo) => void;
 } & ConstructorParameters<typeof AuthProvider>[1];
 
 export class ArcanaConnector extends Connector {
@@ -70,11 +69,6 @@ export class ArcanaConnector extends Connector {
       const chainId = await this.getChainId();
       const unsupported = this.isChainUnsupported(chainId);
 
-      const userInfo = await this.auth.getUser();
-      console.log({ options: this.options });
-      if (this.options.setUserInfo) {
-        this.options.setUserInfo(userInfo);
-      }
       return {
         account: await this.getAccount(),
         chain: { id: chainId, unsupported },
@@ -187,5 +181,9 @@ export class ArcanaConnector extends Connector {
     }
 
     return this.provider;
+  }
+
+  async getUser() {
+    return await this.auth.getUser();
   }
 }
