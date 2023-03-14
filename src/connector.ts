@@ -9,12 +9,13 @@ import {
   UserRejectedRequestError,
   normalizeChainId,
 } from "@wagmi/core";
-import { AuthProvider, EthereumProvider, CHAIN } from "@arcana/auth";
+import { AuthProvider, EthereumProvider, CHAIN, UserInfo } from "@arcana/auth";
 import { ethers } from "ethers";
 
 type AuthOptions = {
   appId?: ConstructorParameters<typeof AuthProvider>[0];
   clientId?: ConstructorParameters<typeof AuthProvider>[0];
+  setUserInfo?: (userInfo: UserInfo) => void;
 } & ConstructorParameters<typeof AuthProvider>[1];
 
 export class ArcanaConnector extends Connector {
@@ -69,7 +70,11 @@ export class ArcanaConnector extends Connector {
       const chainId = await this.getChainId();
       const unsupported = this.isChainUnsupported(chainId);
 
-      this.options.auth = this.auth;
+      const userInfo = await this.auth.getUser();
+      console.log({ options: this.options });
+      if (this.options.setUserInfo) {
+        this.options.setUserInfo(userInfo);
+      }
       return {
         account: await this.getAccount(),
         chain: { id: chainId, unsupported },
