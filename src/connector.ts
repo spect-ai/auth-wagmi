@@ -181,4 +181,12 @@ export class ArcanaConnector extends Connector {
 
     return this.provider;
   }
+
+  getUser() {
+    return this.auth.getUser();
+  }
+
+  getAuth() {
+    return this.auth;
+  }
 }
